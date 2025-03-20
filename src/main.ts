@@ -7,6 +7,9 @@ import { importProvidersFrom } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router'; 
 import { routes } from './app/app.routes';
 
 bootstrapApplication(AppComponent, {
@@ -14,6 +17,6 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(),
     provideRouter(routes),
     provideAnimations(),
-    importProvidersFrom(MatFormFieldModule, MatInputModule, MatButtonModule)
+    importProvidersFrom(MatFormFieldModule, MatInputModule, MatSidenavModule, MatIconModule, MatButtonModule, RouterModule)
   ]
 });

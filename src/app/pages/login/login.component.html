@@ -26,5 +26,11 @@
     </mat-form-field>
 
     <button mat-raised-button color="primary" (click)="login()">Entrar</button>
+    
+    <!-- Link discreto para entrar sem login -->
+    <div class="guest-login">
+      <a (click)="enterWithoutLogin()" class="guest-link">Entrar sem login</a>
+    </div>
+
   </div>
 </div>
