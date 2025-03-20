@@ -1,0 +1,30 @@
+<div class="video-container">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/background.mp4" type="video/mp4">
+    Seu navegador não suporta vídeos HTML5.
+  </video>
+</div>
+
+<div class="login-container">
+  <div class="login-box">
+    <!-- Ícone vindo dos assets -->
+    <div class="logo-container">
+      <img src="assets/icons/svg/logo.svg" alt="Audita Logo" class="login-logo">
+      <h1 class="login-title">Audita</h1>
+    </div>
+
+    <h2>Login</h2>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Usuário</mat-label>
+      <input matInput [(ngModel)]="username">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Senha</mat-label>
+      <input matInput [(ngModel)]="password" type="password">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="login()">Entrar</button>
+  </div>
+</div>
