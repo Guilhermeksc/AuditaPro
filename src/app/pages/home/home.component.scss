@@ -1,0 +1,10 @@
+.layout {
+    display: flex;
+  }
+  
+  .content {
+    flex-grow: 1;
+    transition: margin-left 0.3s ease; // 🔹 Suaviza a transição
+    padding: 20px;
+  }
+  

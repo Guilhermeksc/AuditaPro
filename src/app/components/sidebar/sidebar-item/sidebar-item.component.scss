@@ -1,0 +1,38 @@
+.sidebar-item {
+  cursor: pointer;
+}
+
+.item-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px; /* 🔹 Ajuste no espaçamento */
+  transition: background 0.2s;
+}
+
+.item-header:hover {
+  background-color: #3a3a42;
+}
+
+.icon {
+  width: 20px;
+  margin-right: 8px; /* 🔹 Reduzindo o espaço entre o ícone e o texto */
+}
+
+.submenu {
+  padding-left: 15px; /* 🔹 Diminuindo a indentação do submenu */
+  list-style: none;
+  margin: 0;
+}
+
+.submenu-item {
+  padding: 5px 10px; /* 🔹 Ajustando o espaçamento interno */
+  font-size: 14px;
+  color: #bbb;
+  transition: color 0.2s;
+}
+
+.submenu-item:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}

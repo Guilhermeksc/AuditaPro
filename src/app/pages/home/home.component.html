@@ -1,5 +1,11 @@
-<app-sidebar></app-sidebar>
+<!-- home.component.html -->.
 
-<div class="content">
-  <router-outlet></router-outlet>
+<app-header></app-header>
+
+<div class="layout">
+  <app-sidebar></app-sidebar>
+
+  <div class="content" [style.margin-left]="sidebarWidth">
+    <router-outlet></router-outlet>
+  </div>
 </div>
