@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-homologado-estimado',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    RouterModule
+  ],
   templateUrl: './homologado-estimado.component.html',
-  styleUrls: ['./homologado-estimado.component.scss']
+  styleUrl: './homologado-estimado.component.scss'
 })
-export class HomologadoEstimadoComponent {}
+export class HomologadoEstimadoComponent {
+}

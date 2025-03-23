@@ -1,33 +1,71 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+import { Observable, of, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
-  providedIn: 'root' // Permite injeção global do serviço
+  providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://127.0.0.1:8000/api/users';
-  private tokenKey = 'auth_token';
+  private accessTokenKey = 'access_token';
+  private refreshTokenKey = 'refresh_token';
 
-  private http = inject(HttpClient); // Injeção correta no Angular 19+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login/`, { username, password }).pipe(
-      tap((response: any) => {
-        localStorage.setItem(this.tokenKey, response.tokens.access);
+  login(nip: string, password: string): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/token/`, { nip, password }).pipe(
+      tap(response => this.setTokens(response.access, response.refresh))
+    );
+  }
+
+  logout(): void {
+    this.clearTokens();
+    this.snackBar.open('Sua sessão expirou. Faça login novamente.', 'Fechar', {
+      duration: 5000,
+      verticalPosition: 'top'
+    });
+    this.router.navigate(['/login']);
+  }
+
+  refreshToken(): Observable<any> {
+    const refresh = localStorage.getItem(this.refreshTokenKey);
+    if (!refresh) return throwError(() => new Error('Sem refresh token'));
+
+    return this.http.post<any>(`${environment.apiUrl}/token/refresh/`, { refresh }).pipe(
+      tap(response => this.setAccessToken(response.access)),
+      catchError(error => {
+        this.logout();
+        return throwError(() => error);
       })
     );
   }
 
-  logout() {
-    localStorage.removeItem(this.tokenKey);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
-  }
-
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    return !!localStorage.getItem(this.accessTokenKey);
+  }
+
+  getAccessToken(): string | null {
+    return localStorage.getItem(this.accessTokenKey);
+  }
+
+  private setTokens(access: string, refresh: string): void {
+    localStorage.setItem(this.accessTokenKey, access);
+    localStorage.setItem(this.refreshTokenKey, refresh);
+  }
+
+  private setAccessToken(access: string): void {
+    localStorage.setItem(this.accessTokenKey, access);
+  }
+
+  private clearTokens(): void {
+    localStorage.removeItem(this.accessTokenKey);
+    localStorage.removeItem(this.refreshTokenKey);
   }
 }

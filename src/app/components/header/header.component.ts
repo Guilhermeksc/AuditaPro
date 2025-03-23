@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarToggleService } from '../../services/sidebar/sidebar-toggle.service';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangePasswordDialogComponent } from '../change-password-dialog/change-password-dialog.component';
+import { ChangeProfileDialogComponent } from '../change-profile-dialog/change-profile-dialog.component'; // criar
 
 @Component({
   selector: 'app-header',
@@ -10,13 +14,23 @@ import { UserService } from '../../services/user.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent {
   appTitle = 'AuditaPro';
   version = 'V.0.0.1';
-  userName: string = 'Usuário';
+  userName: string = 'Guest';
+  perfilAtivo: string = '';
 
-  constructor(private userService: UserService, private sidebarService: SidebarToggleService) {
+  constructor(
+    private userService: UserService,
+    private sidebarService: SidebarToggleService,
+    private authService: AuthService,
+    private dialog: MatDialog
+  ) {}
+
+  ngOnInit() {
     this.userName = this.userService.getUserName();
+    this.perfilAtivo = this.userService.getPerfilAtivo();
   }
 
   toggleSidebar() {
@@ -24,14 +38,21 @@ export class HeaderComponent {
   }
 
   changeProfile() {
-    console.log('Trocar perfil');
+    this.dialog.open(ChangeProfileDialogComponent, {
+      panelClass: 'custom-dialog'
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.perfilAtivo = result;
+        this.userService.setPerfilAtivo(result);
+      }
+    });
   }
 
   changePassword() {
-    console.log('Alterar senha');
+    this.dialog.open(ChangePasswordDialogComponent);
   }
 
   logout() {
-    console.log('Sair do sistema');
+    this.authService.logout();
   }
 }
