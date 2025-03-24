@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject, Pipe, PipeTransform } from '@angular/core';
+import { CommonModule, NgClass } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,7 +8,27 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DiarioOficialService, DiarioOficial } from '../../../../services/diario-oficial.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+// Pipe to convert newlines to HTML breaks
+@Pipe({
+  name: 'nl2br',
+  standalone: true
+})
+export class Nl2BrPipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+
+  transform(value: string): SafeHtml {
+    if (!value) {
+      return '';
+    }
+    // Replace each newline with two <br> tags for better spacing
+    const replaced = value.replace(/\n/g, '<br><br>');
+    return this.sanitizer.bypassSecurityTrustHtml(replaced);
+  }
+}
 
 interface MonthOption {
   value: number;
@@ -27,6 +47,7 @@ interface MonthOption {
     MatPaginatorModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatDialogModule,
     ReactiveFormsModule
   ],
   templateUrl: './acompanhamento.component.html',
@@ -71,7 +92,8 @@ export class AcompanhamentoComponent implements OnInit {
 
   constructor(
     private diarioService: DiarioOficialService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
     this.filterForm = this.fb.group({
       ano: [''],
@@ -120,5 +142,97 @@ export class AcompanhamentoComponent implements OnInit {
 
   openPdf(url: string) {
     window.open(url, '_blank');
+  }
+
+  openDetailDialog(diario: DiarioOficial) {
+    this.dialog.open(DiarioDetailDialogComponent, {
+      data: diario,
+      panelClass: 'diario-dialog',
+      width: '800px'
+    });
+  }
+}
+
+@Component({
+  selector: 'app-diario-detail-dialog',
+  template: `
+    <h2 mat-dialog-title>Detalhes da Publicação</h2>
+    <mat-dialog-content class="dialog-content">
+      <div class="dialog-section">
+        <h3 class="section-title">Informações Gerais</h3>
+        
+        <div class="dialog-field-inline">
+          <span class="field-label">Data:</span> <span class="field-value">{{data.data_publicacao | date:'dd/MM/yyyy'}}</span>
+        </div>
+        
+        <div class="dialog-field-inline">
+          <span class="field-label">Edição:</span> <span class="field-value">{{data.edicao}}</span>
+        </div>
+        
+        <div class="dialog-field-inline">
+          <span class="field-label">Tipo:</span> <span class="field-value">{{data.tipo}}</span>
+        </div>
+        
+        <div class="dialog-field-inline">
+          <span class="field-label">Órgão:</span> <span class="field-value">{{data.orgao}}</span>
+        </div>
+        
+        <div class="dialog-field-inline">
+          <span class="field-label">Identificação:</span> <span class="field-value">{{data.identifica}}</span>
+        </div>
+        
+        <div class="dialog-field-inline">
+          <span class="field-label">ID da Matéria:</span> <span class="field-value">{{data.id_materia}}</span>
+        </div>
+        
+        <div class="dialog-field-inline" *ngIf="data.registro">
+          <span class="field-label">Registro:</span> <span class="field-value">{{data.registro}}</span>
+        </div>
+        
+        <div class="dialog-field-inline">
+          <span class="field-label">Status de Auditoria:</span>
+          <span class="field-value" [ngClass]="data.auditado ? 'status-success' : 'status-pending'">
+            {{data.auditado ? 'Auditado' : 'Não auditado'}}
+          </span>
+        </div>
+      </div>
+      
+      <div class="dialog-section" *ngIf="data.comentario">
+        <h3 class="section-title">Comentário</h3>
+        <div class="comentario-box">
+          {{data.comentario}}
+        </div>
+      </div>
+      
+      <div class="dialog-section" *ngIf="data.texto_completo">
+        <h3 class="section-title">Texto Completo</h3>
+        <div class="texto-completo" [innerHTML]="data.texto_completo | nl2br"></div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Fechar</button>
+      <button mat-raised-button color="primary" (click)="openPdf()">
+        <mat-icon>picture_as_pdf</mat-icon>
+        Abrir PDF
+      </button>
+    </mat-dialog-actions>
+  `,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    Nl2BrPipe,
+    NgClass
+  ]
+})
+export class DiarioDetailDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<DiarioDetailDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DiarioOficial
+  ) {}
+
+  openPdf() {
+    window.open(this.data.link_pdf, '_blank');
   }
 } 
