@@ -1,0 +1,91 @@
+[
+    {
+      "sequencialCompra": 186,
+      "anoCompra": 2025,
+      "numeroCompra": "90015",
+      "processo": "63201000219202529",
+      "codigoUnidade": "787010",
+      "nomeUnidade": "CENTRO DE INTENDÊNCIA DA MARINHA EM BRASÍLIA",       
+      "ufSigla": "DF",
+      "valorTotalHomologado": "R$ 15.100,00",
+      "modoDisputaId": "Sim"
+    },
+    {
+      "sequencialCompra": 504,
+      "anoCompra": 2025,
+      "numeroCompra": "90004",
+      "processo": "63402000066202553",
+      "codigoUnidade": "787010",
+      "nomeUnidade": "CENTRO DE INTENDÊNCIA DA MARINHA EM BRASÍLIA",
+      "ufSigla": "DF",
+      "valorTotalHomologado": "R$ 32.150,00",
+      "modoDisputaId": "Sim"
+    },
+    {
+      "sequencialCompra": 501,
+      "anoCompra": 2025,
+      "numeroCompra": "90006",
+      "processo": "63402000066202553",
+      "codigoUnidade": "787010",
+      "nomeUnidade": "CENTRO DE INTENDÊNCIA DA MARINHA EM BRASÍLIA",
+      "ufSigla": "DF",
+      "valorTotalHomologado": "R$ 25.000,00",
+      "modoDisputaId": "Sim"
+    },
+    {
+      "sequencialCompra": 502,
+      "anoCompra": 2025,
+      "numeroCompra": "90001",
+      "processo": "63201000219202529",
+      "codigoUnidade": "791902",
+      "nomeUnidade": "CENTRO DE INTENDÊNCIA DA MARINHA EM BRASÍLIA",
+      "ufSigla": "RJ",
+      "valorTotalHomologado": "R$ 25.000,00",
+      "modoDisputaId": "Sim"
+    },
+    {
+      "sequencialCompra": 235,
+      "anoCompra": 2025,
+      "numeroCompra": "90015",
+      "processo": "63201000219202529",
+      "codigoUnidade": "787010",
+      "nomeUnidade": "CENTRO DE INTENDÊNCIA DA MARINHA EM BRASÍLIA",
+      "ufSigla": "DF",
+      "valorTotalHomologado": "R$ 25.000,00",
+      "modoDisputaId": "Não"
+    },
+    {
+      "sequencialCompra": 596,
+      "anoCompra": 2025,
+      "numeroCompra": "90015",
+      "processo": "63201000219202529",
+      "codigoUnidade": "787010",
+      "nomeUnidade": "CENTRO DE INTENDÊNCIA DA MARINHA EM BRASÍLIA",
+      "ufSigla": "DF",
+      "valorTotalHomologado": "R$ 25.000,00",
+      "modoDisputaId": "Sim"
+    },
+    {
+      "sequencialCompra": 23,
+      "anoCompra": 2025,
+      "numeroCompra": "90015",
+      "processo": "63201000219202529",
+      "codigoUnidade": "787010",
+      "nomeUnidade": "CENTRO DE INTENDÊNCIA DA MARINHA EM BRASÍLIA",
+      "ufSigla": "DF",
+      "valorTotalHomologado": "R$ 25.000,00",
+      "modoDisputaId": "Sim"
+    },
+    {
+      "sequencialCompra": 103,
+      "anoCompra": 2025,
+      "numeroCompra": "90015",
+      "processo": "63201000219202529",
+      "codigoUnidade": "787010",
+      "nomeUnidade": "CENTRO DE INTENDÊNCIA DA MARINHA EM BRASÍLIA",
+      "ufSigla": "DF",
+      "valorTotalHomologado": "R$ 25.000,00",
+      "modoDisputaId": "Sim"
+    }
+  ]
+  

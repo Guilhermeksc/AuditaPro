@@ -23,7 +23,6 @@ import { DetalheObjetoDialogComponent } from './detalhe-objeto-dialog/detalhe-ob
     MatIconModule,
     MatDialogModule,
     HttpClientModule,
-    DetalheObjetoDialogComponent
   ],
   templateUrl: './cadastro-objetos-auditaveis.component.html',
   styleUrls: ['./cadastro-objetos-auditaveis.component.scss']
