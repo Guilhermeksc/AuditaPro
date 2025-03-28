@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface AmparoLegal {
+  codigo: number;
+  descricao: string;
+  nome: string;
+}
+
 export interface DispensaEletronica {
   valorTotalHomologado: string;
   sequencialCompra: number;
@@ -11,7 +17,8 @@ export interface DispensaEletronica {
   codigoUnidade: string;
   nomeUnidade: string;
   ufSigla: string;
-  modoDisputaId: string;
+  modoDisputaNome: string;
+  amparoLegal: AmparoLegal; // Propriedade adicionada
 }
 
 @Injectable({
@@ -35,8 +42,6 @@ export class DispensaEletronicaService {
   excluirObjeto(nr: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${nr}`);
   }
-  
-
   
   // Métodos futuros: adicionar, importar, exportar, gerar relatório etc.
 }

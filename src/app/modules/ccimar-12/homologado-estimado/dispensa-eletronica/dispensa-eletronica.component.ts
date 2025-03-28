@@ -29,8 +29,8 @@ import { DetalheDispensaEletronicaComponent } from './detalhe-dispensa-eletronic
 })
 export class DispensaEletronicaComponent implements OnInit {
   displayedColumns: string[] = [
-    'sequencialCompra', 'anoCompra', 'numeroCompra', 'processo',
-    'codigoUnidade', 'nomeUnidade', 'ufSigla', 'valorTotalHomologado', 'modoDisputaId', 'acao'
+     'acao', 'alerta', 'sequencialCompra', 'anoCompra', 'numeroCompra', 'processo',
+    'codigoUnidade', 'nomeUnidade', 'ufSigla', 'valorTotalHomologado', 'modoDisputaNome', 'amparoLegal.nome',
   ];
 
   dataSource: DispensaEletronica[] = [];

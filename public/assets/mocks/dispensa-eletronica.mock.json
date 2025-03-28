@@ -11,6 +11,17 @@
       "modoDisputaId": "Sim"
     },
     {
+      "sequencialCompra": 250,
+      "anoCompra": 2025,
+      "numeroCompra": "90015",
+      "processo": "63201000219202529",
+      "codigoUnidade": "777777",
+      "nomeUnidade": "Natalia",       
+      "ufSigla": "DF",
+      "valorTotalHomologado": "R$ 15.100,00",
+      "modoDisputaId": "Sim"
+    },
+    {
       "sequencialCompra": 504,
       "anoCompra": 2025,
       "numeroCompra": "90004",
